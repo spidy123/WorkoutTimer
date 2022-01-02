@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:gravity="center">
+    android:gravity="center"
+    android:layout_margin="20dp"
+    android:background="@drawable/background_stroke">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/minusButton"
@@ -39,4 +41,18 @@
         android:layout_margin="24dp"
         android:textSize="24dp"
         android:text="+" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/adjustButton"
+        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+        app:cornerRadius="28dp"
+        android:layout_width="56dp"
+        android:visibility="gone"
+        android:layout_height="56dp"
+        android:textColor="@color/white"
+        android:layout_margin="24dp"
+        app:icon="@drawable/adjust"
+        app:iconTint="@color/white"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"/>
 </LinearLayout>

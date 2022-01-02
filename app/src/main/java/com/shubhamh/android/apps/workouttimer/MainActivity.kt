@@ -27,6 +27,17 @@ class MainActivity : AppCompatActivity() {
         setupSetsCountLayout()
         setupSetsTimerLayout()
         setupRestTimerLayout()
+        setupPlayAndRestartButtons()
+    }
+
+    private fun setupPlayAndRestartButtons() {
+      findViewById<MaterialButton>(R.id.resetButton).setOnClickListener {
+          countersViewModel.resetCounters()
+      }
+
+      findViewById<MaterialButton>(R.id.playButton).setOnClickListener {
+
+      }
     }
 
     private fun setupSetsCountLayout() {
@@ -61,6 +72,12 @@ class MainActivity : AppCompatActivity() {
                     baseContext, setsTimerText.text.toString()
                 )
             }
+            findViewById<MaterialButton>(R.id.adjustButton).apply {
+                setOnClickListener {
+                    val dialog = SetDifferentTimerForEachSetDialog()
+                    dialog.show(supportFragmentManager, "UpdateSetsTimerDialog")
+                }
+            }
         }
     }
 
@@ -83,10 +100,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateSetsCountText() {
         setsCountText.text = countersViewModel.setsCountLiveData.value.toString()
+        countersViewModel.updateSetWithTimerMap(true)
     }
 
     private fun updateSetsTimerText() {
         setsTimerText.text = countersViewModel.setsTimerLiveData.value.toString()
+        countersViewModel.updateSetWithTimerMap(true)
     }
 
     private fun updateRestTimerText() {
