@@ -19,6 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".TimerActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:exported="true"/>
     </application>
 
 </manifest>

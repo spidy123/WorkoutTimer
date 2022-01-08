@@ -1,17 +1,20 @@
 package com.shubhamh.android.apps.workouttimer
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.button.MaterialButton
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var setsCountText: TextView
     private lateinit var setsTimerText: TextView
     private lateinit var restTimerText: TextView
     private lateinit var countersViewModel: CountersViewModel
+    private lateinit var playButton: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +38,20 @@ class MainActivity : AppCompatActivity() {
           countersViewModel.resetCounters()
       }
 
-      findViewById<MaterialButton>(R.id.playButton).setOnClickListener {
-
+      playButton = findViewById(R.id.playButton)
+          playButton.setOnClickListener {
+              val restTime = countersViewModel.restTimerLiveData.value ?: 0
+              val setWithTimerMap = countersViewModel.setWithTimerMap.value ?: emptyMap()
+          startActivity(IntentUtil.getTimerActivityIntent(this, restTime, setWithTimerMap))
       }
+      updatePlayButtonState()
+    }
+
+    private fun shouldEnableButton(): Boolean {
+        val setCount = countersViewModel.setsCountLiveData.value ?: return false
+        val setTime = countersViewModel.setsTimerLiveData.value ?: return false
+
+        return setCount != 0 && setTime != 0
     }
 
     private fun setupSetsCountLayout() {
@@ -101,14 +115,20 @@ class MainActivity : AppCompatActivity() {
     private fun updateSetsCountText() {
         setsCountText.text = countersViewModel.setsCountLiveData.value.toString()
         countersViewModel.updateSetWithTimerMap(true)
+        updatePlayButtonState()
     }
 
     private fun updateSetsTimerText() {
         setsTimerText.text = countersViewModel.setsTimerLiveData.value.toString()
         countersViewModel.updateSetWithTimerMap(true)
+        updatePlayButtonState()
     }
 
     private fun updateRestTimerText() {
         restTimerText.text = countersViewModel.restTimerLiveData.value.toString()
+    }
+
+    private fun updatePlayButtonState() {
+      playButton.isEnabled = shouldEnableButton()
     }
 }
