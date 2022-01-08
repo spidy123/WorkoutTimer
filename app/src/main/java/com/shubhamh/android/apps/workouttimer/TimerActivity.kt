@@ -3,6 +3,7 @@ package com.shubhamh.android.apps.workouttimer
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.button.MaterialButton
 
@@ -37,7 +38,7 @@ class TimerActivity : AppCompatActivity() {
             } else {
                 pauseButton.icon = getDrawable(R.drawable.pause_button)
                 isTimerPaused = false
-                rippleView.startAnimation()
+                rippleView.startAnimation(getColorFromState())
                 timerViewModel.startTimer()
             }
         }
@@ -49,18 +50,36 @@ class TimerActivity : AppCompatActivity() {
             ViewModelProviders.of(/* activity= */ this).get(TimerViewModel::class.java)
         timerViewModel.apply {
             setsTimerLiveData.observe(this@TimerActivity, { updateUi(it) })
+            restTimerLiveData.observe(this@TimerActivity, { updateUi(it) })
             setsCountLiveData.observe(this@TimerActivity, { updateTitleText(it) })
             setWithTimerMap.observe(this@TimerActivity, { if (it.size == 0)  finish() })
+            currentStateLiveData.observe(this@TimerActivity, { updateButtonColor() })
         }
 
         savedInstanceState ?: timerViewModel.setMapData(setWithTimer, restTime)
 
-        timerViewModel.startTimer()
+        timerViewModel.startCountDownTimer()
     }
 
     private fun updateUi(timerText: Int) {
         timerButton.text = timerText.toString()
     }
+
+    private fun getColorFromState(): Int? {
+        val currentState = timerViewModel.currentStateLiveData.value ?: return null
+        return when(currentState) {
+            TimerViewModel.State.REST_TIME -> ContextCompat.getColor(this, R.color.cool)
+            TimerViewModel.State.WORKOUT_TIME -> ContextCompat.getColor(this, R.color.teal_200)
+            TimerViewModel.State.ALERT_TIME -> ContextCompat.getColor(this, R.color.alert)
+        }
+    }
+
+    private fun updateButtonColor() {
+        val color = getColorFromState() ?: return
+        timerButton.setBackgroundColor(color)
+        rippleView.startAnimation(color)
+    }
+
 
     private fun updateTitleText(setCount: Int) {
         titleText.text = getString(R.string.timer_screen_title, setCount)

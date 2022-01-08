@@ -55,8 +55,9 @@ class RippleView(context: Context?, private val attrs: AttributeSet?) : Relative
     /**
      * Call this class to initiate a new ripple animation.
      */
-    fun startAnimation() {
-        val circleView = CircleView(context, attrs, rippleColor, rippleType, rippleStrokeWidth).apply {
+    fun startAnimation(rippleColor: Int? = ContextCompat.getColor(context, R.color.teal_200)) {
+        stopAnimation()
+        val circleView = CircleView(context, attrs, rippleColor ?: ContextCompat.getColor(context, R.color.teal_200), rippleType, rippleStrokeWidth).apply {
             visibility = View.VISIBLE
         }
 
