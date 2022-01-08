@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Number of sets"
-            android:gravity="center" />
+            android:gravity="center"
+            style="@style/NormalText"/>
 
         <include
             android:id="@+id/setsCountLayout"
@@ -27,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Time for each set (seconds)"
-            android:gravity="center" />
+            android:gravity="center"
+            style="@style/NormalText"/>
 
         <include
             android:id="@+id/setsTimerLayout"
@@ -37,7 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Rest time (seconds)"
-            android:gravity="center" />
+            android:gravity="center"
+            style="@style/NormalText"/>
 
         <include
             android:id="@+id/restTimerLayout"
