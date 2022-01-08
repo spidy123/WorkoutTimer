@@ -6,10 +6,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.button.MaterialButton
 
 class TimerActivity : AppCompatActivity() {
     private lateinit var rippleView: RippleView
+    private lateinit var animationView: LottieAnimationView
     private lateinit var pauseButton: MaterialButton
     private lateinit var timerButton: MaterialButton
     private lateinit var titleText: TextView
@@ -25,6 +27,7 @@ class TimerActivity : AppCompatActivity() {
         timerButton = findViewById(R.id.timerButton)
         titleText = findViewById(R.id.titleText)
         rippleView = findViewById(R.id.rippleView)
+        animationView = findViewById(R.id.animationView)
         rippleView.startAnimation()
 
         pauseButton = findViewById(R.id.pauseButton)
@@ -63,6 +66,7 @@ class TimerActivity : AppCompatActivity() {
             timerViewModel.setMapData(setWithTimer, restTime)
             timerViewModel.startCountDownTimer()
             playVoice(TimerViewModel.State.WORKOUT_TIME)
+            updateAnimation()
         }
     }
 
@@ -79,10 +83,31 @@ class TimerActivity : AppCompatActivity() {
         }
     }
 
+    private fun getAnimationFromState(): Int? {
+        val currentState = timerViewModel.currentStateLiveData.value ?: return null
+        return when(currentState) {
+            TimerViewModel.State.REST_TIME -> R.raw.rest
+            TimerViewModel.State.WORKOUT_TIME -> R.raw.workout
+            TimerViewModel.State.ALERT_TIME -> R.raw.alert
+        }
+    }
+
     private fun updateButtonColor() {
         val color = getColorFromState() ?: return
         timerButton.setBackgroundColor(color)
         rippleView.startAnimation(color)
+        updateAnimation()
+    }
+
+    private fun updateAnimation() {
+        val animationAsset = getAnimationFromState()
+        if (animationAsset == null) {
+            animationView.setAnimation(R.raw.workout)
+            animationView.playAnimation()
+        } else {
+            animationView.setAnimation(animationAsset)
+            animationView.playAnimation()
+        }
     }
 
     private fun playVoice(state: TimerViewModel.State) {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TimerText">
+        <item name="fontFamily">sans-serif-condensed</item>
+        <item name="android:textStyle">bold</item>
+        <item name="color">@color/black</item>
+        <item name="android:textSize">50dp</item>
+    </style>
+</resources>
