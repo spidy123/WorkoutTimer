@@ -1,5 +1,6 @@
 package com.shubhamh.android.apps.workouttimer
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -20,8 +21,6 @@ class TimerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.timer_activity)
-
-        savedInstanceState ?: setupData()
 
         timerButton = findViewById(R.id.timerButton)
         titleText = findViewById(R.id.titleText)
@@ -53,12 +52,18 @@ class TimerActivity : AppCompatActivity() {
             restTimerLiveData.observe(this@TimerActivity, { updateUi(it) })
             setsCountLiveData.observe(this@TimerActivity, { updateTitleText(it) })
             setWithTimerMap.observe(this@TimerActivity, { if (it.size == 0)  finish() })
-            currentStateLiveData.observe(this@TimerActivity, { updateButtonColor() })
+            currentStateLiveData.observe(this@TimerActivity, {
+                updateButtonColor()
+                playVoice(it)
+            })
         }
 
-        savedInstanceState ?: timerViewModel.setMapData(setWithTimer, restTime)
-
-        timerViewModel.startCountDownTimer()
+        savedInstanceState ?: run {
+            setupData()
+            timerViewModel.setMapData(setWithTimer, restTime)
+            timerViewModel.startCountDownTimer()
+            playVoice(TimerViewModel.State.WORKOUT_TIME)
+        }
     }
 
     private fun updateUi(timerText: Int) {
@@ -78,6 +83,23 @@ class TimerActivity : AppCompatActivity() {
         val color = getColorFromState() ?: return
         timerButton.setBackgroundColor(color)
         rippleView.startAnimation(color)
+    }
+
+    private fun playVoice(state: TimerViewModel.State) {
+        when(state) {
+            TimerViewModel.State.WORKOUT_TIME -> {
+                val mediaPlayer = MediaPlayer.create(this, R.raw.start_workout)
+                mediaPlayer.start()
+            }
+            TimerViewModel.State.REST_TIME -> {
+                val mediaPlayer = MediaPlayer.create(this, R.raw.rest_time)
+                mediaPlayer.start()
+            }
+            TimerViewModel.State.ALERT_TIME -> {
+                val mediaPlayer = MediaPlayer.create(this, R.raw.approaching_rest)
+                mediaPlayer.start()
+            }
+        }
     }
 
 

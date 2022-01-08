@@ -90,7 +90,6 @@ class TimerViewModel: ViewModel() {
 
             override fun onFinish() {
                 if (setWithTimer.isNotEmpty()) {
-                    android.util.Log.d("######", "posting WORKOUT_TIME")
                     _currentStateLiveData.postValue(State.WORKOUT_TIME)
                     startCountDownTimer()
                 }
