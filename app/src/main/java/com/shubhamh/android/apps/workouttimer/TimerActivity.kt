@@ -2,6 +2,8 @@ package com.shubhamh.android.apps.workouttimer
 
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -67,6 +69,25 @@ class TimerActivity : AppCompatActivity() {
             timerViewModel.startCountDownTimer()
             playVoice(TimerViewModel.State.WORKOUT_TIME)
             updateAnimation()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_options, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.about -> {
+                startActivity(IntentUtil.getAboutActivityIntent(this))
+                true
+            }
+            R.id.feedback -> {
+                startActivity(IntentUtil.getFeedbackActivityIntent(this))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

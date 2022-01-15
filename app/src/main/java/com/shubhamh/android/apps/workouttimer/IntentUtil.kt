@@ -20,4 +20,12 @@ object IntentUtil {
 
         return Intent(context, TimerActivity::class.java).putExtras(bundle)
     }
+
+    fun getMainActivityIntent(context: Context): Intent {
+        return Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+    }
+
+    fun getAboutActivityIntent(context: Context) = Intent(context, AboutActivity::class.java)
+
+    fun getFeedbackActivityIntent(context: Context) = Intent(context, FeedbackActivity::class.java)
 }

@@ -1,13 +1,13 @@
 package com.shubhamh.android.apps.workouttimer
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.button.MaterialButton
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var setsCountText: TextView
@@ -31,6 +31,25 @@ class MainActivity : AppCompatActivity() {
         setupSetsTimerLayout()
         setupRestTimerLayout()
         setupPlayAndRestartButtons()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_options, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.about -> {
+                startActivity(IntentUtil.getAboutActivityIntent(this))
+                true
+            }
+            R.id.feedback -> {
+                startActivity(IntentUtil.getFeedbackActivityIntent(this))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun setupPlayAndRestartButtons() {

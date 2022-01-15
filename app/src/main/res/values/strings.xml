@@ -3,4 +3,23 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="timer_screen_title">Set %1$d</string>
+    <string name="about_menu">About</string>
+    <string name="feedback_menu">Feedback</string>
+    <string name="tagline">It\'s a time for intense workout</string>
+    <string name="app_description">This is the first version of the application. This application can be used during intense workout to set timers for each workout set and for the rest time.</string>
+    <string name="app_version">Version : 1.0</string>
+    <string name="current_features">Existing features</string>
+    <string name="upcoming_features">Upcoming features</string>
+    <string name="existing_feature_1">1. Set timer for each workout set and rest time.</string>
+    <string name="existing_feature_2">2. Voice feature for workout time, approaching rest time, and rest time.</string>
+    <string name="existing_feature_3">3. Timer color change for workout time, approaching rest time, and rest time.</string>
+    <string name="existing_feature_4">4. Provides alert  5 seconds before rest time.</string>
+    <string name="upcoming_feature_1">1. Set different time for each workout set.</string>
+    <string name="upcoming_feature_2">2. Set time in minutes and seconds.</string>
+    <string name="feedback_screen_description">Thank you for using this application. We always appreciate feedbacks. This is one of the best way to make product better.</string>
+    <string name="email_intent_type">message/rfc822</string>
+    <string name="email_intent_to">workouttimerapp001@gmail.com</string>
+    <string name="feedback_title">Feedback title</string>
+    <string name="feedback_description">Feedback description</string>
+    <string name="send_button_text">Send</string>
 </resources>
