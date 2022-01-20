@@ -9,7 +9,7 @@
         android:id="@+id/app_logo"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@mipmap/app_logo_round"/>
+        android:src="@drawable/app_logo_modified"/>
 
     <TextView
         android:id="@+id/app_tagline"

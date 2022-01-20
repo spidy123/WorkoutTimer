@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/app_logo_background.xml" value="0.240625" />
+        <entry key="app/src/main/res/drawable/app_logo_new_background.xml" value="0.22135416666666666" />
         <entry key="app/src/main/res/drawable/background_stroke.xml" value="0.240625" />
         <entry key="app/src/main/res/drawable/play_button.xml" value="0.240625" />
         <entry key="app/src/main/res/drawable/ripple_effect.xml" value="0.225" />
@@ -20,6 +21,8 @@
         <entry key="app/src/main/res/layout/timer_activity.xml" value="0.2056159420289855" />
         <entry key="app/src/main/res/menu/menu_options.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/app_logo.xml" value="0.240625" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/app_logo_final_round.xml" value="0.22135416666666666" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/app_logo_new.xml" value="0.22135416666666666" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/app_logo_round.xml" value="0.240625" />
       </map>
     </option>
