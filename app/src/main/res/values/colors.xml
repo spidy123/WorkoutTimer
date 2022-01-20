@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="alert">#f4511e</color>
     <color name="cool">#00b0ff</color>
+    <color name="textInputBackground">@color/white</color>
 </resources>
